@@ -27,7 +27,6 @@ using SDG.Unturned;
 using Steamworks;
 using UnityEngine;
 using Color = System.Drawing.Color;
-using UColor = UnityEngine.Color;
 
 namespace Dummy.Services
 {
@@ -262,7 +261,7 @@ namespace Dummy.Services
 
                 pending = new(GetTransportConnection(), playerID, userSteamPlayer.isPro,
                     userSteamPlayer.face, userSteamPlayer.hair, userSteamPlayer.beard, userSteamPlayer.skin,
-                    userSteamPlayer.color, userSteamPlayer.markerColor, userSteamPlayer.IsLeftHanded,
+                    userSteamPlayer.color, userSteamPlayer.markerColor, userSteamPlayer.BeardColor, userSteamPlayer.IsLeftHanded,
                     (ulong)userSteamPlayer.shirtItem, (ulong)userSteamPlayer.pantsItem, (ulong)userSteamPlayer.hatItem,
                     (ulong)userSteamPlayer.backpackItem, (ulong)userSteamPlayer.vestItem,
                     (ulong)userSteamPlayer.maskItem, (ulong)userSteamPlayer.glassesItem, Array.Empty<ulong>(),
@@ -284,6 +283,7 @@ namespace Dummy.Services
                 var skins = settings.Skins ?? throw new ArgumentException(nameof(settings.Skins));
 
                 var skinColor = settings.SkinColor;
+                var beardColor = settings.BeardColor;
                 var hairColor = settings.HairColor;
                 var markerColor = settings.MarkerColor;
                 var hwid = settings.Hwid.GetBytes();
@@ -300,7 +300,7 @@ namespace Dummy.Services
                     settings.CharacterName, settings.NickName, settings.SteamGroupId, settings.Hwid.GetBytes());
 
                 pending = new(GetTransportConnection(), playerID, settings.IsPro, settings.FaceId,
-                    settings.HairId, settings.BeardId, skinColor, hairColor, markerColor,
+                    settings.HairId, settings.BeardId, skinColor, hairColor, markerColor, beardColor,
                     settings.IsLeftHanded, skins.Shirt, skins.Pants, skins.Hat,
                     skins.Backpack, skins.Vest, skins.Mask, skins.Glasses, Array.Empty<ulong>(),
                     settings.PlayerSkillset, settings.Language, settings.LobbyId, EClientPlatform.Windows)
@@ -321,7 +321,7 @@ namespace Dummy.Services
                 await UniTask.SwitchToMainThread();
 
                 Provider.accept(playerID, pending!.assignedPro, pending.assignedAdmin, pending.face,
-                    pending.hair, pending.beard, pending.skin, pending.color, pending.markerColor, pending.hand,
+                    pending.hair, pending.beard, pending.skin, pending.color, pending.markerColor, pending.BeardColor, pending.hand,
                     pending.shirtItem, pending.pantsItem, pending.hatItem, pending.backpackItem, pending.vestItem,
                     pending.maskItem, pending.glassesItem, pending.skinItems, pending.skinTags,
                     pending.skinDynamicProps, pending.skillset, pending.language, pending.lobbyID, EClientPlatform.Windows);
